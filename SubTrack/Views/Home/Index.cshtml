@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SubTrack.Models.Subscription>
+
+@{
+    ViewData["Title"] = "Главная";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="dashboard">
+
+    <!-- Левая часть -->
+    <aside class="sidebar-content">
+
+        <!-- Всего расходы -->
+        <section class="dashboard-card total-card" style="height: auto; padding-bottom: 16px;">
+            <h2>Всего расходов</h2>
+            <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="font-size: 20px; font-weight: 700; color: #6366f1;">
+                    @ViewBag.TotalSum ₽ <span style="font-size: 12px; color: #85858b; font-weight: 400;">/ мес</span>
+                </div>
+                <div style="font-size: 12px; color: #eeeeef;">
+                    Подписок: <span style="font-weight: 600;">@ViewBag.TotalCount</span>
+                </div>
+                <div style="font-size: 12px; color: #eeeeef;">
+                    Макс. платеж: <span style="font-weight: 600; color: #ff1717;">@ViewBag.MaxPrice ₽</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Расходы по категориям -->
+        <section class="dashboard-card category-card" style="height: auto; padding-bottom: 16px;">
+            <h2>Расходы по категориям</h2>
+            <div class="category-content" style="padding: 0 16px; display: flex; flex-direction: column; gap: 10px;">
+                @if (ViewBag.CategoryExpenses != null && ((Dictionary<string, decimal>)ViewBag.CategoryExpenses).Any())
+                {
+                    foreach (var item in (Dictionary<string, decimal>)ViewBag.CategoryExpenses)
+                    {
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span style="color: #85858b;">@item.Key</span>
+                            <span style="font-weight: 600; color: #eeeeef;">@item.Value ₽</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span style="color: #85858b; font-size: 12px;">Нет данных</span>
+                }
+            </div>
+        </section>
+
+    </aside>
+
+
+    <!-- Правая часть -->
+    <main class="main-content">
+
+        <!-- Заголовок подписок -->
+        <div class="subscriptions-header">
+            <h2>Мои подписки</h2>
+
+            <!-- Использование прямого href гарантирует переход без настройки Tag Helpers -->
+            <a href="/Home/AddSubscription" class="add-subscription-btn" style="text-decoration: none;">
+                <span class="plus-icon">+</span>
+                Добавить подписку
+            </a>
+        </div>
+
+
+        <!-- Список подписок из Базы Данных -->
+        <div class="subscriptions-list">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var sub in Model)
+                {
+                    <article class="subscription-card">
+                        <!-- Логотип с динамическим классом цвета (netflix-logo, yandex-logo и т.д.) -->
+                        <div class="service-logo @sub.CssClass">
+                            @sub.LogoText
+                        </div>
+
+                        <div class="subscription-info">
+                            <!-- Имя и Цена подписки из БД -->
+                            <span class="service-name">@sub.Name — @sub.Price @sub.Currency / мес</span>
+
+                            <!-- Название категории -->
+                            <span class="category-badge">
+                                @sub.Category?.Name
+                            </span>
+                        </div>
+                    </article>
+                }
+            }
+            else
+            {
+                <p style="color: #85858b; font-size: 14px; padding: 10px;">У вас пока нет активных подписок.</p>
+            }
+        </div>
+
+
+        <!-- Динамика расходов (ОБНОВЛЕНО) -->
+        <section class="dashboard-card spending-card" style="height: auto; padding-bottom: 20px;">
+            <h2>Динамика расходов</h2>
+
+            <div class="chart-container" style="padding: 0 16px; position: relative; height: 160px; width: 100%;">
+                <!-- Холст для отрисовки графика библиотекой Chart.js -->
+                <canvas id="spendingChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+</div>

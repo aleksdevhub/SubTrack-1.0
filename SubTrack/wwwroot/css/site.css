@@ -1,0 +1,536 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    min-height: 100%;
+}
+
+
+body {
+    background: #121214;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.top-header {
+    height: 70px;
+    background: #121214;
+    border-bottom: 1px solid #28282d;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    position: relative;
+}
+
+
+/* Логотип */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #ffffff;
+    text-decoration: none;
+    width: 118px;
+}
+
+
+.logo-icon {
+    width: 23px;
+    height: 23px;
+    background: #6366f1;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    padding: 5px;
+}
+
+
+    .logo-icon span {
+        background: #ffffff;
+        border-radius: 1px;
+    }
+
+
+.logo-text {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   NAVIGATION
+   ========================= */
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+    margin-left: 20px;
+}
+
+
+.nav-link {
+    color: #85858b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+
+    .nav-link.active {
+        color: #85858b;
+    }
+
+
+/* =========================
+   HEADER ACTIONS
+   ========================= */
+
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* Поиск */
+
+.search-button {
+    width: 92px;
+    height: 28px;
+    border-radius: 5px;
+    border: 1px solid #38383f;
+    background: #1e1e24;
+    color: #d7d7dc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: inherit;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+
+    .search-button svg {
+        width: 11px;
+        height: 11px;
+    }
+
+
+/* Кнопки header */
+
+.header-icon-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    border: 1px solid #38383f;
+    background: #1e1e24;
+    color: #d7d7dc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+
+    .header-icon-button:hover {
+        background: #26262d;
+        border-color: #50505a;
+    }
+
+
+/* Профиль */
+
+.profile-button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 5px;
+    background: #6366f1;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+/* =========================
+   PAGE
+   ========================= */
+
+.page-container {
+    width: 100%;
+    max-width: 1440px;
+    min-height: calc(100vh - 70px);
+    margin: 0 auto;
+    padding: 45px 48px 48px;
+}
+
+
+/* =========================
+   DASHBOARD (ОБНОВЛЕНО)
+   ========================= */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 215px 560px; /* Сужаем правую колонку под пропорции макета */
+    gap: 48px; /* Красивый свободный отступ между колонками */
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center; /* Центрируем весь дашборд на экране */
+}
+
+
+/* =========================
+   LEFT COLUMN (ОБНОВЛЕНО)
+   ========================= */
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+/* Общая карточка */
+
+.dashboard-card {
+    background: #1e1e24;
+    border: 1px solid #3b3b42;
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+
+    .dashboard-card h2 {
+        color: #8c8c92;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 10px 16px;
+    }
+
+
+/* Всего */
+
+.total-card {
+    height: 108px;
+}
+
+
+/* Сетка для плашек внутри блока "Всего" */
+.total-stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0 16px;
+    margin-top: 4px;
+}
+
+
+/* Компактные блоки метрик (Сумма, Кол-во, Макс) */
+.stat-mini-box {
+    height: 38px;
+    background: #26262b;
+    border: 1px solid #3b3b42;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    .stat-mini-box span {
+        font-size: 8px;
+        color: #85858b;
+        margin-bottom: 1px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .stat-mini-box strong {
+        font-size: 11px;
+        color: #eeeeef;
+        font-weight: 600;
+    }
+
+
+/* Категории */
+
+.category-card {
+    height: 108px;
+}
+
+
+.category-mini-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 16px;
+    margin-top: 2px;
+}
+
+.category-mini-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    align-items: center;
+}
+
+    .category-mini-item span {
+        color: #85858b;
+        font-weight: 500;
+    }
+
+    .category-mini-item strong {
+        color: #eeeeef;
+        font-weight: 600;
+    }
+
+
+/* =========================
+   RIGHT COLUMN (ОБНОВЛЕНО)
+   ========================= */
+
+.main-content {
+    min-width: 0;
+    max-width: 560px; /* Ограничиваем контент по ширине */
+    width: 100%;
+}
+
+
+/* Заголовок */
+
+.subscriptions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 11px;
+}
+
+
+    .subscriptions-header h2 {
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+/* Кнопка добавления */
+
+.add-subscription-btn {
+    height: 30px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 8px;
+    background: #6366f1;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+
+    .add-subscription-btn:hover {
+        background: #5558dc;
+    }
+
+
+.plus-icon {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 300;
+}
+
+
+/* =========================
+   SUBSCRIPTIONS
+   ========================= */
+
+.subscriptions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.subscription-card {
+    height: 43px;
+    background: #1e1e24;
+    border: 1px solid #3b3b42;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+}
+
+
+/* Логотип сервиса */
+
+.service-logo {
+    width: 31px;
+    height: 31px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+
+/* Netflix */
+
+.netflix-logo {
+    background: #d40000;
+    color: #ffffff;
+    border: 1px solid #ff1717;
+}
+
+
+/* Яндекс */
+
+.yandex-logo {
+    background: #c9c900;
+    color: #ffffff;
+    border: 1px solid #e6e600;
+}
+
+
+/* Spotify */
+
+.spotify-logo {
+    background: #00b800;
+    color: #ffffff;
+    border: 1px solid #00df00;
+}
+
+
+/* Информация */
+
+.subscription-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 11px;
+    width: 100%;
+    justify-content: space-between; /* Распределяем название и категорию по краям */
+    padding-right: 8px;
+}
+
+
+.service-name {
+    color: #eeeeef;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+.category-badge {
+    height: 15px;
+    padding: 0 8px;
+    border-radius: 5px;
+    border: 1px solid #45454c;
+    color: #77777e;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   SPENDING CARD
+   ========================= */
+
+.spending-card {
+    height: 129px;
+    margin-top: 25px;
+}
+
+
+    .spending-card h2 {
+        color: #ffffff;
+        font-size: 12px;
+        padding-top: 10px;
+    }
+
+
+.chart-placeholder {
+    height: calc(100% - 36px);
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .dashboard {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .sidebar-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    .page-container {
+        padding: 25px 18px;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .search-button {
+        width: 28px;
+    }
+
+        .search-button span {
+            display: none;
+        }
+
+    .sidebar-content {
+        grid-template-columns: 1fr;
+    }
+}

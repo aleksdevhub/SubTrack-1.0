@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - SubTrack</title>
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <!-- Подключаем библиотеку Chart.js для отрисовки графиков расходов -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+
+<body>
+
+    <!-- Верхняя панель -->
+    <header class="top-header">
+
+        <!-- Логотип -->
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="logo">
+
+            <div class="logo-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <span class="logo-text">
+                SubTrack
+            </span>
+
+        </a>
+
+
+        <!-- Навигация -->
+        <nav class="navigation">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="nav-link active">
+                Главная
+            </a>
+
+            <a href="#"
+               class="nav-link">
+                Аналитика
+            </a>
+
+        </nav>
+
+
+        <!-- Правая часть -->
+        <div class="header-actions">
+
+            <!-- Поиск -->
+            <button class="search-button"
+                    type="button">
+
+                <svg width="14"
+                     height="14"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2">
+
+                    <circle cx="11"
+                            cy="11"
+                            r="7">
+                    </circle>
+
+                    <path d="m20 20-4-4">
+                    </path>
+
+                </svg>
+
+                <span>Поиск</span>
+
+            </button>
+
+
+            <!-- Настройки -->
+            <button class="header-icon-button"
+                    type="button"
+                    title="Настройки">
+
+                <svg width="15"
+                     height="15"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <circle cx="12"
+                            cy="12"
+                            r="3">
+                    </circle>
+
+                    <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.5 1.5-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.04 1.56V21h-2.12v-.4a1.7 1.7 0 0 0-1.04-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.5-1.5.06-.06A1.7 1.7 0 0 0 7.6 15a1.7 1.7 0 0 0-1.56-1.04H5.6v-2.12h.44A1.7 1.7 0 0 0 7.6 10.8a1.7 1.7 0 0 0-.34-1.88L7.2 8.86l1.5-1.5.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 11.68 6.2V5.6h2.12v.6a1.7 1.7 0 0 0 1.04 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.5 1.5-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 19.44 12h.96v2.12h-.96A1.7 1.7 0 0 0 19.4 15Z">
+                    </path>
+
+                </svg>
+
+            </button>
+
+
+            <!-- Уведомления -->
+            <button class="header-icon-button"
+                    type="button"
+                    title="Уведомления">
+
+                <svg width="15"
+                     height="15"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.8">
+
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9">
+                    </path>
+
+                    <path d="M10 21h4">
+                    </path>
+
+                </svg>
+
+            </button>
+
+
+            <!-- Профиль -->
+            <button class="profile-button"
+                    type="button"
+                    title="Профиль">
+                А
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Содержимое страницы -->
+    <div class="page-container">
+
+        @RenderBody()
+
+    </div>
+
+
+    <script src="~/js/site.js"
+            asp-append-version="true">
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Скрипт инициализации и кастомизации графика под дизайн Figma -->
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var ctx = document.getElementById('spendingChart');
+                if (!ctx) return; // Если мы не на главной странице, скрипт завершает работу
+
+                // Получаем массивы месяцев и сумм из C# бэкенда через JSON-сериализацию
+                var months = @Html.Raw(Json.Serialize(ViewBag.ChartMonths));
+                var values = @Html.Raw(Json.Serialize(ViewBag.ChartValues));
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Расходы',
+                            data: values,
+                            borderColor: '#6366f1', // Фирменный фиолетовый цвет проекта
+                            borderWidth: 3,
+                            backgroundColor: 'rgba(99, 102, 241, 0.08)', // Легкий неоновый градиент под линией
+                            fill: true,
+                            tension: 0.4, // Делает линию плавной и закругленной
+                            pointBackgroundColor: '#6366f1',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false } // Убираем стандартную плашку легенды
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: '#28282d' }, // Делаем вертикальную сетку темно-серой под тему
+                                ticks: { color: '#85858b', font: { family: 'Inter', size: 10 } }
+                            },
+                            y: {
+                                grid: { color: '#28282d' }, // Делаем горизонтальную сетку темно-серой
+                                ticks: { color: '#85858b', font: { family: 'Inter', size: 10 } }
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+
+</body>
+</html>
